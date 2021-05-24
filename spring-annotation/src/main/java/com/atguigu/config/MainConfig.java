@@ -1,18 +1,40 @@
 package com.atguigu.config;
 
 import com.atguigu.bean.Person;
+import com.atguigu.service.BookService;
+
+import java.nio.file.attribute.UserDefinedFileAttributeView;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.ComponentScan.Filter;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.FilterType;
+import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 
-//é…ç½®ç±»==é…ç½®æ–‡ä»¶
-@Configuration  //å‘Šè¯‰Springè¿™æ˜¯ä¸€ä¸ªé…ç½®ç±»
-@ComponentScan(value = "com.atguigu",excludeFilters = {}) //åŒ…æ‰«æ
+//ÅäÖÃÀà==ÅäÖÃÎÄ¼ş
+@Configuration // ¸æËßSpringÕâÊÇÒ»¸öÅäÖÃÀà
+@ComponentScan(value = "com.atguigu", includeFilters = {
+//		@Filter(type=FilterType.ANNOTATION,classes = {Controller.class,Service.class
+//		@Filter(type = FilterType.ASSIGNABLE_TYPE, classes = BookService.class), 
+		@Filter(type = FilterType.CUSTOM, classes = MyTypeFilter.class), 
+		}, useDefaultFilters = false)
+
+//°üÉ¨Ãè
+//@ComponentScan  value:Ö¸¶¨ÒªÉ¨ÃèµÄ°ü
+//excludeFilters = Filter[] £ºÖ¸¶¨É¨ÃèµÄÊ±ºò°´ÕÕÊ²Ã´¹æÔòÅÅ³ıÄÇĞ©×é¼ş
+//includeFilters = Filter[] £ºÖ¸¶¨É¨ÃèµÄÊ±ºòÖ»ĞèÒª°üº¬ÄÄĞ©×é¼ş
+//FilterType.ANNOTATION£º°´ÕÕ×¢½â
+//FilterType.ASSIGNABLE_TYPE£º°´ÕÕ¸ø¶¨µÄÀàĞÍ£»
+//FilterType.ASPECTJ£ºÊ¹ÓÃASPECTJ±í´ïÊ½
+//FilterType.REGEX£ºÊ¹ÓÃÕıÔòÖ¸¶¨
+//FilterType.CUSTOM£ºÊ¹ÓÃ×Ô¶¨Òå¹æÔò
 public class MainConfig {
-    //ç»™å®¹å™¨ä¸­æ³¨å†Œä¸€ä¸ªBean;ç±»å‹ä¸ºè¿”å›å€¼çš„ç±»å‹ï¼Œ
-    // bean_idé»˜è®¤æ˜¯ç”¨æ–¹æ³•åä½œä¸ºid,ä½†å¯ä»¥æ›´æ”¹@Bean(value = "person")
-    @Bean(value = "person")
-    public Person person01() {
-        return new Person("lisi", 20);
-    }
+	// ¸øÈİÆ÷ÖĞ×¢²áÒ»¸öBean;ÀàĞÍÎª·µ»ØÖµµÄÀàĞÍ£¬
+	// bean_idÄ¬ÈÏÊÇÓÃ·½·¨Ãû×÷Îªid,µ«¿ÉÒÔ¸ü¸Ä@Bean(value = "person")
+	@Bean(value = "person")
+	public Person person01() {
+		return new Person("lisi", 20);
+	}
 }

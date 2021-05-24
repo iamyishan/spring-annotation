@@ -16,11 +16,11 @@ public class MainTest {
         Person bean = applicationContext.getBean(Person.class);
         System.out.println(bean);
 
-//        查看bean的名字
+     //    查看bean的名字
+     // Person这个类型的组件在IOC容器中的名字是什么呢？
         String[] namesForType = applicationContext.getBeanNamesForType(Person.class);
         for (String name : namesForType) {
             System.out.println(name);
         }
-
     }
 }
